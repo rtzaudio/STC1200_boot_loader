@@ -100,7 +100,7 @@ void MyHwInitFunc(void)
 
 void MyInitFunc(void)
 {
-    // Status LED PF4 -> 1=ON, 0=OFF
+    // Status LED PF4 on
     ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 1);
 }
 
@@ -118,8 +118,8 @@ void MyInitFunc(void)
 
 void MyStartFunc(void)
 {
-    // Status LED PF4 -> 1=ON, 0=OFF
-    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 1);
+    // Status LED PF4 on
+    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 0);
 }
 
 //*****************************************************************************
@@ -143,6 +143,7 @@ void MyStartFunc(void)
 
 void MyProgressFunc(uint32_t ulCompleted, uint32_t ulTotal)
 {
+    // Toggle status LED on PF4
     uint32_t pin = ROM_GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_4) ? 0 : 1;
     ROM_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, pin);
 }
@@ -162,7 +163,7 @@ void MyProgressFunc(uint32_t ulCompleted, uint32_t ulTotal)
 
 void MyEndFunc(void)
 {
-    // Status LED PF4 -> 1=ON, 0=OFF
+    // Status LED PF4 off
     ROM_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0);
 }
 
