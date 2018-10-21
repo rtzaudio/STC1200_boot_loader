@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// DTC-1200 Digital Transport Controller Boot Loader for Ampex MM-1200
+// STC-1200 Digital Transport Controller Boot Loader for Ampex MM-1200
 //
 // Copyright (C) 2016-2018, RTZ Professional Audio, LLC
 // All Rights Reserved
@@ -59,6 +59,7 @@
 #include "boot_loader/bl_crc32.h"
 #endif
 
+
 /*** Static Function Prototypes ***/
 
 
@@ -91,8 +92,7 @@ void MyHwInitFunc(void)
 // Performs application-specific initialization on system reset.
 //
 // This function will be called immediately after the boot loader sets the 
-// system clock. Here we perform hardware initialization specific to the 
-// DTC-1200 digital transport controller and the MM-1200 hardware.
+// system clock.
 //
 // void MyInitFunc(void);
 //
@@ -100,6 +100,8 @@ void MyHwInitFunc(void)
 
 void MyInitFunc(void)
 {
+    // Status LED PF4 -> 1=ON, 0=OFF
+    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 1);
 }
 
 //*****************************************************************************
@@ -116,6 +118,8 @@ void MyInitFunc(void)
 
 void MyStartFunc(void)
 {
+    // Status LED PF4 -> 1=ON, 0=OFF
+    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 1);
 }
 
 //*****************************************************************************
@@ -139,6 +143,8 @@ void MyStartFunc(void)
 
 void MyProgressFunc(uint32_t ulCompleted, uint32_t ulTotal)
 {
+    uint32_t pin = ROM_GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_4) ? 0 : 1;
+    ROM_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, pin);
 }
 
 //*****************************************************************************
@@ -156,6 +162,8 @@ void MyProgressFunc(uint32_t ulCompleted, uint32_t ulTotal)
 
 void MyEndFunc(void)
 {
+    // Status LED PF4 -> 1=ON, 0=OFF
+    ROM_GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_4, 0);
 }
 
 // END-OF-FILE

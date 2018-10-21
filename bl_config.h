@@ -28,7 +28,7 @@
 #include "custom.h"
 
 //*****************************************************************************
-// The DTC-1200 controller uses UART1 on PORT-C for the main RS-232 serial
+// The STC-1200 controller uses UART1 on PORT-C for the main RS-232 serial
 // port. Pin PC4 is configured for RX and pin PC5 is configured for TX.
 //
 // The forced update pin PC6 on connector P1 activates the boot loader
@@ -419,7 +419,7 @@
 // Requires: UART_RXPIN_CLOCK_ENABLE, UART_RXPIN_BASE and UART_RXPIN_POS
 //
 //*****************************************************************************
-#define UART_RXPIN_PCTL         0x2
+#define UART_RXPIN_PCTL         0x1
 
 //*****************************************************************************
 //
@@ -430,7 +430,7 @@
 // Requires: UART_RXPIN_CLOCK_ENABLE, UART_RXPIN_BASE and UART_RXPIN_PCTL
 //
 //*****************************************************************************
-#define UART_RXPIN_POS          4       // PC4 -> U1RX
+#define UART_RXPIN_POS          0       // PA0 -> U1RX
 
 //*****************************************************************************
 //
@@ -441,7 +441,7 @@
 // Requires: UART_TXPIN_BASE, UART_TXPIN_PCTL and UART_TXPIN_POS
 //
 //*****************************************************************************
-#define UART_TXPIN_CLOCK_ENABLE SYSCTL_RCGCGPIO_R2	// GPIO Port C gate control
+#define UART_TXPIN_CLOCK_ENABLE SYSCTL_RCGCGPIO_R0	// GPIO Port A gate control
 
 //*****************************************************************************
 //
@@ -452,7 +452,7 @@
 // Requires: UART_TXPIN_CLOCK_ENABLE, UART_TXPIN_PCTL and UART_TXPIN_POS
 //
 //*****************************************************************************
-#define UART_TXPIN_BASE         GPIO_PORTC_BASE
+#define UART_TXPIN_BASE         GPIO_PORTA_BASE
 
 //*****************************************************************************
 //
@@ -474,7 +474,7 @@
 // Requires: UART_TXPIN_CLOCK_ENABLE, UART_TXPIN_BASE and UART_TXPIN_PCTL
 //
 //*****************************************************************************
-#define UART_TXPIN_POS          5       // PC5 -> U1TX
+#define UART_TXPIN_POS          1       // PA1 -> U1TX
 
 //*****************************************************************************
 //
