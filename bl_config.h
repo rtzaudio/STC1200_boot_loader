@@ -28,15 +28,15 @@
 #include "custom.h"
 
 //*****************************************************************************
-// The STC-1200 controller uses UART1 on PORT-C for the main RS-232 serial
-// port. Pin PC4 is configured for RX and pin PC5 is configured for TX.
+// The STC-1200 controller uses UART1 on PORT-B for the COM1 RS-232 serial
+// port. Pin PB0 is configured for RX and pin PB1 is configured for TX.
 //
-// The forced update pin PC6 on connector P1 activates the boot loader
-// when PC6 is pulled low. The weak pull-up option is enabled for this pin.
+// The forced update pin PH3 is connected to the BOOT switch S2 on the board
+// and is active low when pressed. The weak pull-up is enabled for this pin.
 //
-//  PC4 => UART1 RX
-//  PC5 => UART1 TX
-//  PC6 => FORCE UPDATE PIN (0=ACTIVE)
+//  PB0 => U1RX UART1 RX
+//  PB1 => U1TX UART1 TX
+//  PH3 => BOOT BUTTON FORCE UPDATE PIN (0=ACTIVE)
 //
 //*****************************************************************************
 
@@ -257,7 +257,7 @@
 // Requries: None
 //
 //*****************************************************************************
-#define FORCED_UPDATE_PERIPH    SYSCTL_RCGCGPIO_R13		/* Port-H */
+#define FORCED_UPDATE_PERIPH    SYSCTL_RCGCGPIO_R7		/* Port-H */
 
 //*****************************************************************************
 //
@@ -282,7 +282,7 @@
 // Requries: None
 //
 //*****************************************************************************
-#define FORCED_UPDATE_PIN       3     // PH3
+#define FORCED_UPDATE_PIN       3     // PH3 connected to BOOT button S2
 
 //*****************************************************************************
 //
@@ -375,7 +375,7 @@
 // Requires: UARTx_BASE
 //
 //*****************************************************************************
-#define UART_CLOCK_ENABLE         SYSCTL_RCGCUART_R0	// UART Module 0
+#define UART_CLOCK_ENABLE         SYSCTL_RCGCUART_R1	// UART Module 1
 
 //*****************************************************************************
 //
@@ -386,7 +386,7 @@
 // Requires: UART_CLOCK_ENABLE
 //
 //*****************************************************************************
-#define UARTx_BASE                UART0_BASE
+#define UARTx_BASE                UART1_BASE
 
 //*****************************************************************************
 //
@@ -397,7 +397,7 @@
 // Requires: UART_RXPIN_BASE, UART_RXPIN_PCTL and UART_RXPIN_POS
 //
 //*****************************************************************************
-#define UART_RXPIN_CLOCK_ENABLE   SYSCTL_RCGCGPIO_R0	// port A gate control
+#define UART_RXPIN_CLOCK_ENABLE   SYSCTL_RCGCGPIO_R1	// port B gate control
 
 //*****************************************************************************
 //
@@ -408,7 +408,7 @@
 // Requires: UART_RXPIN_CLOCK_ENABLE, UART_RXPIN_PCTL and UART_RXPIN_POS
 //
 //*****************************************************************************
-#define UART_RXPIN_BASE         GPIO_PORTA_BASE
+#define UART_RXPIN_BASE         GPIO_PORTB_BASE
 
 //*****************************************************************************
 //
@@ -419,7 +419,7 @@
 // Requires: UART_RXPIN_CLOCK_ENABLE, UART_RXPIN_BASE and UART_RXPIN_POS
 //
 //*****************************************************************************
-#define UART_RXPIN_PCTL         0x1
+//#define UART_RXPIN_PCTL         0x1
 
 //*****************************************************************************
 //
@@ -430,7 +430,7 @@
 // Requires: UART_RXPIN_CLOCK_ENABLE, UART_RXPIN_BASE and UART_RXPIN_PCTL
 //
 //*****************************************************************************
-#define UART_RXPIN_POS          0       // PA0 -> U1RX
+#define UART_RXPIN_POS          0       // PB0 -> U1RX
 
 //*****************************************************************************
 //
@@ -441,7 +441,7 @@
 // Requires: UART_TXPIN_BASE, UART_TXPIN_PCTL and UART_TXPIN_POS
 //
 //*****************************************************************************
-#define UART_TXPIN_CLOCK_ENABLE SYSCTL_RCGCGPIO_R0	// GPIO Port A gate control
+#define UART_TXPIN_CLOCK_ENABLE SYSCTL_RCGCGPIO_R1	// GPIO Port B gate control
 
 //*****************************************************************************
 //
@@ -452,7 +452,7 @@
 // Requires: UART_TXPIN_CLOCK_ENABLE, UART_TXPIN_PCTL and UART_TXPIN_POS
 //
 //*****************************************************************************
-#define UART_TXPIN_BASE         GPIO_PORTA_BASE
+#define UART_TXPIN_BASE         GPIO_PORTB_BASE
 
 //*****************************************************************************
 //
@@ -463,7 +463,7 @@
 // Requires: UART_TXPIN_CLOCK_ENABLE, UART_TXPIN_BASE and UART_TXPIN_POS
 //
 //*****************************************************************************
-#define UART_TXPIN_PCTL         0x2
+//#define UART_TXPIN_PCTL         0x1
 
 //*****************************************************************************
 //
@@ -474,7 +474,7 @@
 // Requires: UART_TXPIN_CLOCK_ENABLE, UART_TXPIN_BASE and UART_TXPIN_PCTL
 //
 //*****************************************************************************
-#define UART_TXPIN_POS          1       // PA1 -> U1TX
+#define UART_TXPIN_POS          1       // PB1 -> U1TX
 
 //*****************************************************************************
 //
