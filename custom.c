@@ -59,12 +59,14 @@
 #include "boot_loader/bl_crc32.h"
 #endif
 
+#define PIN_LOW     ( 0)
+#define PIN_HIGH    (~0)
 
 /*** Static Function Prototypes ***/
 
 
 /*** Global Data ***/
-
+static int count = 0;
 
 //*****************************************************************************
 //
@@ -89,6 +91,23 @@ void MyHwInitFunc(void)
 
 //*****************************************************************************
 //
+// Performs application-specific reinitialization on boot loader entry via SVC.
+//
+// If hooked, this function will be called immediately after the boot loader
+// reinitializes the system clock when it is entered from an application
+// via the SVC mechanism rather than as a result of a system reset.  An
+// application may perform any additional reinitialization in this function.
+//
+// void MyReinitFunc(void);
+//
+//*****************************************************************************
+
+void MyReinitFunc()
+{
+}
+
+//*****************************************************************************
+//
 // Performs application-specific initialization on system reset.
 //
 // This function will be called immediately after the boot loader sets the 
@@ -100,8 +119,13 @@ void MyHwInitFunc(void)
 
 void MyInitFunc(void)
 {
-    // Status LED PF4 on
-    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 1);
+    // Enable Port-F peripheral
+    ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+
+    // Enable pin PF4 for GPIOOutput
+    ROM_GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_4);
+    // Status LED PF4 off
+    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, PIN_LOW);
 }
 
 //*****************************************************************************
@@ -119,7 +143,7 @@ void MyInitFunc(void)
 void MyStartFunc(void)
 {
     // Status LED PF4 on
-    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 0);
+    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, PIN_HIGH);
 }
 
 //*****************************************************************************
@@ -143,9 +167,13 @@ void MyStartFunc(void)
 
 void MyProgressFunc(uint32_t ulCompleted, uint32_t ulTotal)
 {
-    // Toggle status LED on PF4
-    uint32_t pin = ROM_GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_4) ? 0 : 1;
-    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, pin);
+    if (++count > 8)
+    {
+        count = 0;
+        // Toggle status LED on PF4
+        uint32_t pin = ROM_GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_4) ? PIN_LOW : PIN_HIGH;
+        ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, pin);
+    }
 }
 
 //*****************************************************************************
@@ -163,8 +191,8 @@ void MyProgressFunc(uint32_t ulCompleted, uint32_t ulTotal)
 
 void MyEndFunc(void)
 {
-    // Status LED PF4 on
-    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, 1);
+    // Status LED PF4 off
+    ROM_GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_4, PIN_LOW);
 }
 
 // END-OF-FILE

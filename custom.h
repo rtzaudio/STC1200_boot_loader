@@ -14,7 +14,7 @@
 
 /*** STC-1200 Hardware Constants ***********************************************/
 
-#define HW_REV			0			/* 0=A, 1=B, 2=C, 3=D etc  */
+#define HW_REV			1			/* 0=A, 1=B, 2=C, 3=D etc  */
 
 
 #endif /* __CUSTOM_H */

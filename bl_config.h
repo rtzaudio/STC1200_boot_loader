@@ -294,7 +294,7 @@
 // Requries: None
 //
 //*****************************************************************************
-#define FORCED_UPDATE_POLARITY  0     // PH3 = 0 triggers boot loader
+#define FORCED_UPDATE_POLARITY  0     // PH3 = 0 triggers boot loader update
 
 //*****************************************************************************
 //
@@ -363,8 +363,8 @@
 // Requires: None
 //
 //*****************************************************************************
-//#define UART_FIXED_BAUDRATE     115200
-#define UART_FIXED_BAUDRATE     19200
+#define UART_FIXED_BAUDRATE     115200
+//#define UART_FIXED_BAUDRATE     19200
 
 //*****************************************************************************
 //
@@ -408,7 +408,7 @@
 // Requires: UART_RXPIN_CLOCK_ENABLE, UART_RXPIN_PCTL and UART_RXPIN_POS
 //
 //*****************************************************************************
-#define UART_RXPIN_BASE         GPIO_PORTB_BASE
+#define UART_RXPIN_BASE         GPIO_PORTB_BASE     // PB0->U1RX, PB1->U1TX
 
 //*****************************************************************************
 //
@@ -419,7 +419,7 @@
 // Requires: UART_RXPIN_CLOCK_ENABLE, UART_RXPIN_BASE and UART_RXPIN_POS
 //
 //*****************************************************************************
-//#define UART_RXPIN_PCTL         0x1
+#define UART_RXPIN_PCTL         0x1
 
 //*****************************************************************************
 //
@@ -452,7 +452,7 @@
 // Requires: UART_TXPIN_CLOCK_ENABLE, UART_TXPIN_PCTL and UART_TXPIN_POS
 //
 //*****************************************************************************
-#define UART_TXPIN_BASE         GPIO_PORTB_BASE
+#define UART_TXPIN_BASE         GPIO_PORTB_BASE     // PB0->U1RX, PB1->U1TX
 
 //*****************************************************************************
 //
@@ -463,7 +463,7 @@
 // Requires: UART_TXPIN_CLOCK_ENABLE, UART_TXPIN_BASE and UART_TXPIN_POS
 //
 //*****************************************************************************
-//#define UART_TXPIN_PCTL         0x1
+#define UART_TXPIN_PCTL         0x1
 
 //*****************************************************************************
 //
@@ -1370,7 +1370,7 @@
 // void MyReinitFunc(void);
 //
 //*****************************************************************************
-//#define BL_REINIT_FN_HOOK       MyReinitFunc
+#define BL_REINIT_FN_HOOK       MyReinitFunc
 
 //*****************************************************************************
 //
@@ -1563,7 +1563,7 @@
 // the FLASH_RSVD_SPACE value in this header file.
 //
 //*****************************************************************************
-//#define BL_FLASH_END_FN_HOOK    MyFlashEndFunc
+#define BL_FLASH_END_FN_HOOK    MyFlashEndFunc
 
 //*****************************************************************************
 //
