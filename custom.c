@@ -84,10 +84,10 @@ static int count = 0;
 //
 //*****************************************************************************
 
-void MyHwInitFunc(void)
-{
+//void MyHwInitFunc(void)
+//{
     //ROM_SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN);
-}
+//}
 
 //*****************************************************************************
 //
@@ -102,9 +102,9 @@ void MyHwInitFunc(void)
 //
 //*****************************************************************************
 
-void MyReinitFunc()
-{
-}
+//void MyReinitFunc()
+//{
+//}
 
 //*****************************************************************************
 //
@@ -167,7 +167,7 @@ void MyStartFunc(void)
 
 void MyProgressFunc(uint32_t ulCompleted, uint32_t ulTotal)
 {
-    if (++count > 8)
+    if (++count >= 1)
     {
         count = 0;
         // Toggle status LED on PF4
